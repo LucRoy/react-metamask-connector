@@ -1,9 +1,20 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
+import theme from "./theme";
+import Layout from "./components/Layout";
+import ConnectButton from "./components/ConnectButton";
+import AccountModal from "./components/AccountModal";
+import "@fontsource/inter";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+function App() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <ConnectButton handleOpenModal={onOpen} />
+        <AccountModal isOpen={isOpen} onClose={onClose} />
+      </Layout>
+    </ChakraProvider>
+  );
+}
+
+export default App;
